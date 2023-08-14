@@ -42,32 +42,25 @@ export default function App() {
     }
 
     let flames = 'FLAMES';
-    var c = 0;
-    while (flames.length !== 1) {
-      for (var i = 0; i < count; i++) {
-        if (c >= flames.length) {
-          c = 0;
-        }
-        c++;
-      }
-      flames = flames.substring(0, c - 1) + flames.substring(c);
-      flames = flames.trim();
-    }
+    let idxToRemove = (count - 1) % flames.length;
 
-    // while (flames.length > 1) {
-    //   const index = (count % flames.length);
-    //   flames = flames.substring(index) + flames.substring(0, index);
-    // }
+    while (flames.length > 1) {
+      flames = flames.slice(0, idxToRemove) + flames.slice(idxToRemove + 1);
+      idxToRemove = (idxToRemove + (count - 1)) % flames.length;
+    }
 
     switch (flames) {
       case 'F':
         setfl('The relationship is Friends');
         break;
       case 'L':
-        setfl('The relationship is Love ');
+        setfl('The relationship is Love');
         break;
       case 'A':
-        setfl('The relationship is Marriage ');
+        setfl('The relationship is Affection');
+        break;
+      case 'M':
+        setfl('The relationship is Marriage');
         break;
       case 'E':
         setfl('The relationship is Enemy');
@@ -76,9 +69,11 @@ export default function App() {
         setfl('The relationship is Sister');
         break;
       default:
-        setfl('you entered wrong one');
+        setfl('You entered a wrong one');
+        break;
     }
   }
+
   function refreshPage() {
     window.location.reload(false);
   }
@@ -111,40 +106,42 @@ export default function App() {
           onChange={chan}
         />
       </div>
-<div style={{display:"flex",justifyContent:"start"}}>
-      <button
-        style={{
-          position: 'relative',
-          left: '40%',
-          border: '2px solid yellow',
-          color: 'red',
-          padding: '20px',
-          width: '110px',
-          height: '50px',
-          backgroundColor: 'grey',
-        }}
-        onClick={handle}
-      >
-        <span style={{ fontSize: '20px' }}>
-          <abbr title="Check">Check</abbr>
-        </span>
-      </button>
-      <button
-        onClick={refreshPage}
-        style={{
-          backgroundColor: 'rgb(181, 255, 218)',
-          position: 'relative',
-          left: '50%',
-          
-          padding: '20px',
-          width: '110px',
-          height: '50px',
-        }}
-      >
-        <abbr title="Refresh">
-       <span style={{color:"rgb(25, 27, 29)" }}><b>Refresh</b></span> 
-        </abbr>
-      </button>
+
+      <div style={{ display: 'flex', justifyContent: 'start' }}>
+        <button
+          style={{
+            position: 'relative',
+            left: '40%',
+            border: '2px solid yellow',
+            color: 'red',
+            padding: '20px',
+            width: '110px',
+            height: '50px',
+            backgroundColor: 'grey',
+          }}
+          onClick={handle}
+        >
+          <span style={{ fontSize: '20px' }}>
+            <abbr title="Check">Check</abbr>
+          </span>
+        </button>
+        <button
+          onClick={refreshPage}
+          style={{
+            backgroundColor: 'rgb(181, 255, 218)',
+            position: 'relative',
+            left: '50%',
+            padding: '20px',
+            width: '110px',
+            height: '50px',
+          }}
+        >
+          <abbr title="Refresh">
+            <span style={{ color: 'rgb(25, 27, 29)' }}>
+              <b>Refresh</b>
+            </span>
+          </abbr>
+        </button>
       </div>
       <div></div>
       <div
@@ -152,7 +149,6 @@ export default function App() {
         style={{
           position: 'absolute',
           margin: '20px',
-          
           width: '100%',
           height: '80px',
           backgroundColor: 'rgb(255, 199, 199)',
@@ -169,7 +165,6 @@ export default function App() {
           {fl}
         </h2>
       </div>
-      
     </div>
   );
 }

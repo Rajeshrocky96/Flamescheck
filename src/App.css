@@ -9,6 +9,7 @@ body {
 
 input[type="text"]:hover  {
   border: 3px solid lawngreen;
+  
 
   background-color: rgb(255, 199, 199);
 }
